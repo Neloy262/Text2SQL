@@ -1,0 +1,79 @@
+#[project]
+#name = "natural-language-to-sql"
+#version = "0.1.0"
+#description = "A Natural Language to SQL application using Gemini LLM and RAG"
+#authors = [
+#    {name = "mahmud", email = "mahmud@nybsys.com"}
+#]
+#readme = "README.md"
+#requires-python = ">=3.12,<4.0"
+#dependencies = [
+#    "google-generativeai>=0.5.0",
+#    "transformers>=4.35.0",
+#    "torch>=2.0.0",
+#    "datasets>=2.14.0",
+#    "faiss-cpu>=1.7.0",
+#    "sentence-transformers>=2.2.0",
+#    "accelerate>=0.20.0",
+#    "sqlalchemy>=2.0.0",
+#    "pandas>=2.0.0",
+#    "numpy>=1.24.0",
+#    "python-dotenv>=1.0.0",
+#    "smolagents[openai] (>=1.22.0,<2.0.0)",
+#    "langchain (>=1.0.5,<2.0.0)",
+#    "langchain-community (>=0.4.1,<0.5.0)",
+#    "rank-bm25 (>=0.2.2,<0.3.0)"
+#]
+#
+#[project.scripts]
+#nsql = "natural_language_to_sql.cli.main:main"
+#
+#[tool.poetry.group.dev.dependencies]
+#pytest = "^7.0.0"
+#black = "^23.0.0"
+#flake8 = "^6.0.0"
+#
+#
+#[build-system]
+#requires = ["poetry-core>=2.0.0,<3.0.0"]
+#build-backend = "poetry.core.masonry.api"
+
+
+[project]
+name = "natural-language-to-sql"
+version = "0.1.0"
+description = "A Natural Language to SQL application using Gemini LLM and RAG"
+authors = [
+    {name = "mahmud", email = "mahmud@nybsys.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12,<4.0"
+dependencies = [
+    "google-generativeai>=0.5.0",
+    "transformers>=4.35.0",
+#    "torch==1.13.1",  # Last version with good CUDA 6.1 support
+    "datasets>=2.14.0",
+    "faiss-cpu>=1.7.0",  # Changed to GPU version for your GPU
+    "sentence-transformers>=2.2.0",
+    "accelerate>=0.20.0",
+    "sqlalchemy>=2.0.0",
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    "python-dotenv>=1.0.0",
+    "smolagents[openai]>=1.22.0,<2.0.0",
+    "langchain>=1.0.5,<2.0.0",
+    "langchain-community>=0.4.1,<0.5.0",
+    "rank-bm25>=0.2.2,<0.3.0"
+]
+
+[project.scripts]
+nsql = "natural_language_to_sql.cli.main:main"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.0.0"
+black = "^23.0.0"
+flake8 = "^6.0.0"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

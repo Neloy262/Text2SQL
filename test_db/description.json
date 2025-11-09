@@ -1,0 +1,231 @@
+[
+  {
+    "name": "actor",
+    "columns": [
+      {"name": "actor_id", "type": "INTEGER", "nullable": false, "primary_key": true},
+      {"name": "first_name", "type": "VARCHAR(45)", "nullable": false},
+      {"name": "last_name", "type": "VARCHAR(45)", "nullable": false},
+      {"name": "last_update", "type": "TIMESTAMP", "nullable": false}
+    ],
+    "primary_keys": ["actor_id"]
+  },
+  {
+    "name": "country",
+    "columns": [
+      {"name": "country_id", "type": "INTEGER", "nullable": false, "primary_key": true},
+      {"name": "country", "type": "VARCHAR(50)", "nullable": false},
+      {"name": "last_update", "type": "TIMESTAMP", "nullable": true}
+    ],
+    "primary_keys": ["country_id"]
+  },
+  {
+    "name": "city",
+    "columns": [
+      {"name": "city_id", "type": "INTEGER", "nullable": false, "primary_key": true},
+      {"name": "city", "type": "VARCHAR(50)", "nullable": false},
+      {"name": "country_id", "type": "INT", "nullable": false, "foreign_key": true},
+      {"name": "last_update", "type": "TIMESTAMP", "nullable": false}
+    ],
+    "primary_keys": ["city_id"],
+    "foreign_keys": [
+      {"constrained_columns": ["country_id"], "referred_table": "country", "referred_columns": ["country_id"]}
+    ]
+  },
+  {
+    "name": "address",
+    "columns": [
+      {"name": "address_id", "type": "INTEGER", "nullable": false, "primary_key": true},
+      {"name": "address", "type": "VARCHAR(50)", "nullable": false},
+      {"name": "address2", "type": "VARCHAR(50)", "nullable": true},
+      {"name": "district", "type": "VARCHAR(20)", "nullable": false},
+      {"name": "city_id", "type": "INT", "nullable": false, "foreign_key": true},
+      {"name": "postal_code", "type": "VARCHAR(10)", "nullable": true},
+      {"name": "phone", "type": "VARCHAR(20)", "nullable": false},
+      {"name": "last_update", "type": "TIMESTAMP", "nullable": false}
+    ],
+    "primary_keys": ["address_id"],
+    "foreign_keys": [
+      {"constrained_columns": ["city_id"], "referred_table": "city", "referred_columns": ["city_id"]}
+    ]
+  },
+  {
+    "name": "language",
+    "columns": [
+      {"name": "language_id", "type": "INTEGER", "nullable": false, "primary_key": true},
+      {"name": "name", "type": "CHAR(20)", "nullable": false},
+      {"name": "last_update", "type": "TIMESTAMP", "nullable": false}
+    ],
+    "primary_keys": ["language_id"]
+  },
+  {
+    "name": "category",
+    "columns": [
+      {"name": "category_id", "type": "INTEGER", "nullable": false, "primary_key": true},
+      {"name": "name", "type": "VARCHAR(25)", "nullable": false},
+      {"name": "last_update", "type": "TIMESTAMP", "nullable": false}
+    ],
+    "primary_keys": ["category_id"]
+  },
+  {
+    "name": "customer",
+    "columns": [
+      {"name": "customer_id", "type": "INTEGER", "nullable": false, "primary_key": true},
+      {"name": "store_id", "type": "INT", "nullable": false, "foreign_key": true},
+      {"name": "first_name", "type": "VARCHAR(45)", "nullable": false},
+      {"name": "last_name", "type": "VARCHAR(45)", "nullable": false},
+      {"name": "email", "type": "VARCHAR(50)", "nullable": true},
+      {"name": "address_id", "type": "INT", "nullable": false, "foreign_key": true},
+      {"name": "active", "type": "CHAR(1)", "nullable": false},
+      {"name": "create_date", "type": "TIMESTAMP", "nullable": false},
+      {"name": "last_update", "type": "TIMESTAMP", "nullable": false}
+    ],
+    "primary_keys": ["customer_id"],
+    "foreign_keys": [
+      {"constrained_columns": ["store_id"], "referred_table": "store", "referred_columns": ["store_id"]},
+      {"constrained_columns": ["address_id"], "referred_table": "address", "referred_columns": ["address_id"]}
+    ]
+  },
+  {
+    "name": "film",
+    "columns": [
+      {"name": "film_id", "type": "INTEGER", "nullable": false, "primary_key": true},
+      {"name": "title", "type": "VARCHAR(255)", "nullable": false},
+      {"name": "description", "type": "BLOB", "nullable": true},
+      {"name": "release_year", "type": "VARCHAR(4)", "nullable": true},
+      {"name": "language_id", "type": "INT", "nullable": false, "foreign_key": true},
+      {"name": "original_language_id", "type": "INT", "nullable": true, "foreign_key": true},
+      {"name": "rental_duration", "type": "SMALLINT", "nullable": false},
+      {"name": "rental_rate", "type": "DECIMAL(4,2)", "nullable": false},
+      {"name": "length", "type": "SMALLINT", "nullable": true},
+      {"name": "replacement_cost", "type": "DECIMAL(5,2)", "nullable": false},
+      {"name": "rating", "type": "VARCHAR(10)", "nullable": true},
+      {"name": "special_features", "type": "VARCHAR(100)", "nullable": true},
+      {"name": "last_update", "type": "TIMESTAMP", "nullable": false}
+    ],
+    "primary_keys": ["film_id"],
+    "foreign_keys": [
+      {"constrained_columns": ["language_id"], "referred_table": "language", "referred_columns": ["language_id"]},
+      {"constrained_columns": ["original_language_id"], "referred_table": "language", "referred_columns": ["language_id"]}
+    ]
+  },
+  {
+    "name": "film_actor",
+    "columns": [
+      {"name": "actor_id", "type": "INT", "nullable": false, "primary_key": true, "foreign_key": true},
+      {"name": "film_id", "type": "INT", "nullable": false, "primary_key": true, "foreign_key": true},
+      {"name": "last_update", "type": "TIMESTAMP", "nullable": false}
+    ],
+    "primary_keys": ["actor_id", "film_id"],
+    "foreign_keys": [
+      {"constrained_columns": ["actor_id"], "referred_table": "actor", "referred_columns": ["actor_id"]},
+      {"constrained_columns": ["film_id"], "referred_table": "film", "referred_columns": ["film_id"]}
+    ]
+  },
+  {
+    "name": "film_category",
+    "columns": [
+      {"name": "film_id", "type": "INT", "nullable": false, "primary_key": true, "foreign_key": true},
+      {"name": "category_id", "type": "INT", "nullable": false, "primary_key": true, "foreign_key": true},
+      {"name": "last_update", "type": "TIMESTAMP", "nullable": false}
+    ],
+    "primary_keys": ["film_id", "category_id"],
+    "foreign_keys": [
+      {"constrained_columns": ["film_id"], "referred_table": "film", "referred_columns": ["film_id"]},
+      {"constrained_columns": ["category_id"], "referred_table": "category", "referred_columns": ["category_id"]}
+    ]
+  },
+  {
+    "name": "film_text",
+    "columns": [
+      {"name": "film_id", "type": "INTEGER", "nullable": false, "primary_key": true},
+      {"name": "title", "type": "VARCHAR(255)", "nullable": false},
+      {"name": "description", "type": "BLOB", "nullable": true}
+    ],
+    "primary_keys": ["film_id"]
+  },
+  {
+    "name": "inventory",
+    "columns": [
+      {"name": "inventory_id", "type": "INTEGER", "nullable": false, "primary_key": true},
+      {"name": "film_id", "type": "INT", "nullable": false, "foreign_key": true},
+      {"name": "store_id", "type": "INT", "nullable": false, "foreign_key": true},
+      {"name": "last_update", "type": "TIMESTAMP", "nullable": false}
+    ],
+    "primary_keys": ["inventory_id"],
+    "foreign_keys": [
+      {"constrained_columns": ["film_id"], "referred_table": "film", "referred_columns": ["film_id"]},
+      {"constrained_columns": ["store_id"], "referred_table": "store", "referred_columns": ["store_id"]}
+    ]
+  },
+  {
+    "name": "staff",
+    "columns": [
+      {"name": "staff_id", "type": "INTEGER", "nullable": false, "primary_key": true},
+      {"name": "first_name", "type": "VARCHAR(45)", "nullable": false},
+      {"name": "last_name", "type": "VARCHAR(45)", "nullable": false},
+      {"name": "address_id", "type": "INT", "nullable": false, "foreign_key": true},
+      {"name": "picture", "type": "BLOB", "nullable": true},
+      {"name": "email", "type": "VARCHAR(50)", "nullable": true},
+      {"name": "store_id", "type": "INT", "nullable": false, "foreign_key": true},
+      {"name": "active", "type": "SMALLINT", "nullable": false},
+      {"name": "username", "type": "VARCHAR(16)", "nullable": false},
+      {"name": "password", "type": "VARCHAR(40)", "nullable": true},
+      {"name": "last_update", "type": "TIMESTAMP", "nullable": false}
+    ],
+    "primary_keys": ["staff_id"],
+    "foreign_keys": [
+      {"constrained_columns": ["store_id"], "referred_table": "store", "referred_columns": ["store_id"]},
+      {"constrained_columns": ["address_id"], "referred_table": "address", "referred_columns": ["address_id"]}
+    ]
+  },
+  {
+    "name": "store",
+    "columns": [
+      {"name": "store_id", "type": "INTEGER", "nullable": false, "primary_key": true},
+      {"name": "manager_staff_id", "type": "INT", "nullable": false, "foreign_key": true},
+      {"name": "address_id", "type": "INT", "nullable": false, "foreign_key": true},
+      {"name": "last_update", "type": "TIMESTAMP", "nullable": false}
+    ],
+    "primary_keys": ["store_id"],
+    "foreign_keys": [
+      {"constrained_columns": ["manager_staff_id"], "referred_table": "staff", "referred_columns": ["staff_id"]},
+      {"constrained_columns": ["address_id"], "referred_table": "address", "referred_columns": ["address_id"]}
+    ]
+  },
+  {
+    "name": "payment",
+    "columns": [
+      {"name": "payment_id", "type": "INTEGER", "nullable": false, "primary_key": true},
+      {"name": "customer_id", "type": "INT", "nullable": false, "foreign_key": true},
+      {"name": "staff_id", "type": "INT", "nullable": false, "foreign_key": true},
+      {"name": "rental_id", "type": "INT", "nullable": true, "foreign_key": true},
+      {"name": "amount", "type": "DECIMAL(5,2)", "nullable": false},
+      {"name": "payment_date", "type": "TIMESTAMP", "nullable": false},
+      {"name": "last_update", "type": "TIMESTAMP", "nullable": false}
+    ],
+    "primary_keys": ["payment_id"],
+    "foreign_keys": [
+      {"constrained_columns": ["customer_id"], "referred_table": "customer", "referred_columns": ["customer_id"]},
+      {"constrained_columns": ["staff_id"], "referred_table": "staff", "referred_columns": ["staff_id"]},
+      {"constrained_columns": ["rental_id"], "referred_table": "rental", "referred_columns": ["rental_id"]}
+    ]
+  },
+  {
+    "name": "rental",
+    "columns": [
+      {"name": "rental_id", "type": "INTEGER", "nullable": false, "primary_key": true},
+      {"name": "rental_date", "type": "TIMESTAMP", "nullable": false},
+      {"name": "inventory_id", "type": "INT", "nullable": false, "foreign_key": true},
+      {"name": "customer_id", "type": "INT", "nullable": false, "foreign_key": true},
+      {"name": "return_date", "type": "TIMESTAMP", "nullable": true},
+      {"name": "staff_id", "type": "INT", "nullable": false, "foreign_key": true},
+      {"name": "last_update", "type": "TIMESTAMP", "nullable": false}
+    ],
+    "primary_keys": ["rental_id"],
+    "foreign_keys": [
+      {"constrained_columns": ["inventory_id"], "referred_table": "inventory", "referred_columns": ["inventory_id"]},
+      {"constrained_columns": ["customer_id"], "referred_table": "customer", "referred_columns": ["customer_id"]},
+      {"constrained_columns": ["staff_id"], "referred_table": "staff", "referred_columns": ["staff_id"]}
+    ]
+  }
+]
