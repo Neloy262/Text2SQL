@@ -166,7 +166,7 @@ class RAGSystem:
             if idx < len(self.table_descriptions):
                 table_info = self.table_descriptions[idx].copy()
                 table_info['similarity_score'] = float(scores[0][i])
-                print(table_info['similarity_score'])
+                # print(table_info['similarity_score'])
                 # if table_info['similarity_score'] >= min_score:
                 #     relevant_tables.append(table_info)
                 relevant_tables.append(table_info)
